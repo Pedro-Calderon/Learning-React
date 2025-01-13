@@ -37,6 +37,7 @@ function NavigationMenu(props){
              Contact
              </Link>
            </li>
+         
          </ul>
          </div>
     )

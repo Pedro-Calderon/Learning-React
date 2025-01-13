@@ -12,6 +12,7 @@ import Footer from './Components/Footer';
 import About from './Views/About';
 import Home from './Views/Home';
 import Contact from './Views/Contact';
+import Products from './Views/Products';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route exact path="/" element={<Home/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/contact" element={<Contact/>} />
+      <Route path="/products/:id" element={<Products/>} />
 
       </Routes>
       </div>
