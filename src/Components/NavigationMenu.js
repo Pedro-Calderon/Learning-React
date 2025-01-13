@@ -7,7 +7,14 @@ function NavigationMenu(props){
             
         
         <div className="font-bold py-3">
-        AppName
+        <Link 
+             to="/" 
+           
+             onClick={props.closeMenu}
+             >
+             AppName
+             </Link>
+       
         </div>
         <ul>
            <li>
