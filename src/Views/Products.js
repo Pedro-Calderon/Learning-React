@@ -1,38 +1,67 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Loader from "../Components/Loader"
 
 function Products(){
+    let content=null
     const { id } = useParams()
     const url = `https://5e9623dc5b19f10016b5e31f.mockapi.io/api/v1/products/${id}`    
-    const [products,setProducts]=useState(null)
+    const [products,setProducts]=useState({
+        loading: false,
+        data: null,
+        error: false
+    })
     useEffect(()=>{
+        setProducts({
+            loading: true,
+            data: null,
+            error: false
+
+        })
         axios.get(url)
         .then(response=>{
-            setProducts(response.data)
+            setProducts({
+                loading: false,
+                data: response.data,
+                error: false
+            })
+        })
+        .catch(()=>{
+            setProducts({
+                loading: false,
+                data: null,
+                error: true
+            })
         })
     },[url])
 
-        let content=null
 
-    if (products) {
+        if (products.error) {
+            content=<p>Error al cargar el producto, intentelo mas tarde.</p>
+        }      
+        if (products.loading) {
+            content=<Loader></Loader>
+        }
+
+    if (products.data) {
         content=
         <div>
             <h1 className="text-2xl font-bold mb-3">
-                {products.name}
+                {products.data.name}
             </h1>
             <div>
                 <img 
-                    src={products.images[0].imageUrl}
-                    alt={products.name}
+                    src={products.data.images[0].imageUrl}
+                    alt={products.data.name}
                     />           
             </div>
             <div className="font-bold text-xl mb-3">
-                $ {products.price}
+                $ {products.data.price}
 
             </div>
             <div>
-                {products.description}
+                {products.data.description}
             </div>
        </div>
     }
